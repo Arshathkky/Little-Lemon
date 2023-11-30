@@ -1,33 +1,51 @@
 import React, { useState } from 'react'
-import { View ,Text ,StyleSheet, TextInput} from 'react-native'
+import { View ,Text ,StyleSheet, TextInput, Pressable} from 'react-native'
 
 const LoginScreen = () => {
     const [email, onChangeEmail] =useState('');
     const [password, onChangePassword] =useState('');
+    const [showLogin ,setShowLogin] = useState(false)
 
   return (
     <View>
-        <Text style={loginScreen.Headertext}> Welcome to the little Lemon </Text>
-        <Text style={loginScreen.regularText}> Login to continue</Text>
-        <TextInput
-            style={loginScreen.textbox}
-            value={email}
-            onChange={onChangeEmail}
-            placeholder={'email'} 
-            keyboardType={'email-address'}
-            >
+        
+         {!showLogin &&(
+         <>
+            <Text style={loginScreen.Headertext}> Welcome to the little Lemon </Text>
+            <Text style={loginScreen.regularText}> Login to continue</Text>
+            <TextInput
+                style={loginScreen.textbox}
+                value={email}
+                onChange={onChangeEmail}
+                placeholder={'email'} 
+                keyboardType={'email-address'}
+                >
 
-        </TextInput>
-        <TextInput
-            style={loginScreen.textbox}
-            value={password}
-            onChange={onChangePassword}
-            placeholder={'Password'} 
-            keyboardType={'default'}
-            secureTextEntry={true}
-            >
+            </TextInput>
+            <TextInput
+                style={loginScreen.textbox}
+                value={password}
+                onChange={onChangePassword}
+                placeholder={'Password'} 
+                keyboardType={'default'}
+                secureTextEntry={true}
+                >
 
-        </TextInput>
+            </TextInput>
+        </>)}
+        <Pressable style={loginScreen.button} onPress={() => {
+            setShowLogin(!showLogin)
+        
+        }}>
+            <Text style={loginScreen.buttonText}>
+                {showLogin ? 'Home' :'Login'}
+            </Text>
+        </Pressable>
+        {showLogin && (
+            <Text style={loginScreen.regularText}>
+                Your are logged in!
+            </Text>
+        )}
     </View>
   )
 }
@@ -57,7 +75,22 @@ const loginScreen = StyleSheet.create(
             fontSize: 16,
             borderColor: '#EDEFEE',
             backgroundColor: '#EDEFEE',
-          }
+          },
+          button: {
+            fontSize: 22,
+            padding: 10,
+            marginVertical: 8,
+            margin: 100,
+            backgroundColor: '#EE9972',
+            borderColor: '#EE9972',
+            borderWidth: 2,
+            borderRadius: 50,
+          },
+          buttonText: {
+            color: 'black',
+            textAlign: 'center',
+            fontSize: 25,
+          },
 
     }
 )

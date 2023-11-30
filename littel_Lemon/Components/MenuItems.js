@@ -1,5 +1,5 @@
-import React from 'react'
-import { View,Text,StyleSheet,SectionList } from 'react-native'
+import React, {useState}from 'react'
+import { View,Text,StyleSheet,SectionList, TextInput , Pressable} from 'react-native'
 import WelcomeScreen from './WelcomeScreen';
 
 const menuItemsToDisplay = [
@@ -56,6 +56,8 @@ const Item =({name,price})=>(
 
 )
 const MenuItems = () => {
+    const [showMenu,setShowMenu]=useState(false);
+    const [firstName , onChangeFirstName] = useState('')
 
     const renderItem = ({item})=>
     <Item name={item.name} price={item.price}/>
@@ -67,7 +69,29 @@ const MenuItems = () => {
   return (
     <View style={menuStyles.container}>
         
-        <SectionList
+      {!showMenu && (
+      <>
+      <Text style={menuStyles.headerText}>Welcome to Little Lemon</Text>
+      <Text style={menuStyles.regularText}>
+        Little Lemon is a charming neighborhood bistro that serves simple food
+        and classic cocktails in a lively but casual environment. We would love
+        to hear more about your experience with us!
+      </Text>
+      <TextInput 
+        style={menuStyles.inputBox}
+        onChangeText={onChangeFirstName}
+        placeholder='First Name'>
+      </TextInput>
+      
+      </>)}
+      
+
+      <Pressable style={menuStyles.button} onPress={() => {setShowMenu(!showMenu)}}>
+        <Text style={menuStyles.buttonText}>
+              {showMenu ? 'Home' :'View Menu'}  
+        </Text>
+      </Pressable>
+      {showMenu && (<SectionList
             keyExtractor={(item,index) => item + index}
             sections={menuItemsToDisplay}
             
@@ -75,7 +99,8 @@ const MenuItems = () => {
             renderSectionHeader={renderSectionHeader}
             >
               
-        </SectionList>
+        </SectionList>)}
+        
     </View>
   )
 }
@@ -109,6 +134,43 @@ const menuStyles = StyleSheet.create({
     fontSize: 20,
     flexWrap: 'wrap',
     textAlign: 'center',
+  },
+  headerText: {
+    padding: 40,
+    fontSize: 30,
+    color: '#EDEFEE',
+    textAlign: 'center',
+  },
+  regularText: {
+    fontSize: 24,
+    padding: 20,
+    marginVertical: 8,
+    color: '#EDEFEE',
+    textAlign: 'center',
+  },
+  inputBox: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    fontSize: 16,
+    borderColor: '#EDEFEE',
+    backgroundColor: '#EDEFEE',
+  },
+  button: {
+    fontSize: 22,
+    padding: 10,
+    marginVertical: 8,
+    margin: 40,
+    backgroundColor: '#EDEFEE',
+    borderColor: '#EDEFEE',
+    borderWidth: 2,
+    borderRadius: 12
+  },
+  buttonText: {
+    color: '#333333',
+    textAlign: 'center',
+    fontSize: 32,
   },
 });
 export default MenuItems
