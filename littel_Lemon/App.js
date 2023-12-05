@@ -2,22 +2,33 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LittleLemonHeader from './Components/LittleLemonHeader'
 import LittleLemonFooter from './Components/LittleLemonFooter';
-import MenuItems from './Components/MenuItems';
-import WelcomeScreen from './Components/WelcomeScreen1';
+import WelcomeScreen from './Components/WelcomeScreen';
 import LoginScreen from './Components/LoginScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import FeedbackForm from './Components/Feedback';
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
   return (
+    
     <>
-      <View style={styles.container}>
-        <LittleLemonHeader></LittleLemonHeader>
-        {/* <LoginScreen></LoginScreen> */}
-        <WelcomeScreen/>
-        {/* <MenuItems/>   */}
-      </View>
-      <View style={styles.footerContainer}>
-         <LittleLemonFooter /> 
-      </View>
+      
+      {
+        <NavigationContainer>
+        <View style={styles.container}>
+          <LittleLemonHeader />
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+          </Stack.Navigator>
+        </View>
+        <View style={styles.footerContainer}>
+          <LittleLemonFooter />
+        </View>
+      </NavigationContainer>}
+     
+      
     </>
   );
 }

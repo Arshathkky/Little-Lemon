@@ -1,12 +1,14 @@
 import React  from 'react'
-import {Text,ScrollView,StyleSheet, Image} from 'react-native'
+import {Text,ScrollView,StyleSheet, Image, useColorScheme} from 'react-native'
 import MenuItems from './MenuItems';
+
 
 const WelcomeScreen1 = () => {
    
-    
-  return (
-    <ScrollView style={styles.container}>
+    const colorScheme = useColorScheme();
+    const stack = createNativeStackNavigator()
+    return (
+    <ScrollView style={[styles.container, colorScheme==='light'?{backgroundColor:"#fff"}:{backgroundColor:"#333333"},]}>
         <Image
           style={styles.logo}
           source={require('../assets/Img/Logo.png')}
@@ -14,8 +16,14 @@ const WelcomeScreen1 = () => {
           accessibility={true}
           accessibilityLabel='Little lemon logo'
         />
-        <Text style={styles.title}>
-             Little Lemon, your local Mediterranean Bistro 
+        <Text
+          style={[
+            styles.headerText,
+            colorScheme === 'light'
+              ? { color: '#333333' }
+              : { color: '#EDEFEE' },
+          ]}>
+          Little Lemon
         </Text>
         <Image 
             style={styles.image}
