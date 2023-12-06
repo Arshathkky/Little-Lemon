@@ -52,7 +52,8 @@ const LoginScreen = () => {
 const loginScreen = StyleSheet.create(
     {
         container:{
-            flex:1
+            flex:1,
+            
         },
         Headertext:{
             padding: 40,
